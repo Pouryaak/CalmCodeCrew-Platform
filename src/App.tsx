@@ -1,12 +1,16 @@
-import { BrowserRouter } from 'react-router-dom';
-import DefaultRoutes from './routes';
+import CssBaseline from '@mui/material/CssBaseline';
+import Menubar from './shared/Menubar/Menubar.jsx';
+import { Toaster } from 'react-hot-toast';
 
-function App() {
+function App({ children }: any) {
   return (
     <>
-      <BrowserRouter>
-        <DefaultRoutes />
-      </BrowserRouter>
+      <div>
+        <Toaster />
+      </div>
+      <CssBaseline />
+      <Menubar />
+      <div>{children}</div>
     </>
   );
 }

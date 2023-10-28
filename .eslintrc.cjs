@@ -28,5 +28,15 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'react', 'prettier'],
-  rules: { 'prettier/prettier': 'error' },
+  rules: {
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-undef': 'error',
+    'no-undef': 'error',
+    'prettier/prettier': 'error',
+  },
+  settings: {
+    react: {
+      version: 'detect', // Automatically detect the React version
+    },
+  },
 };
