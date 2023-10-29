@@ -1,12 +1,7 @@
-import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
 
-const Layout = () => {
-  return (
-    <Box sx={{ padding: '10px 10px', margin: '20px' }}>
-      <Outlet />
-    </Box>
-  );
+const Layout = ({ children }) => {
+  return <Box sx={{ padding: '10px 10px', margin: '20px' }}>{children}</Box>;
 };
 
 export default Layout;
