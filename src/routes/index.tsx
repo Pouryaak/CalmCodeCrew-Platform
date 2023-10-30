@@ -4,18 +4,29 @@ import { ROUTES } from './default_routes';
 import AuthenticationPage from '../views/AuthenticationPage/AuthenticationPage';
 import MainLayout from '../shared/Layout/MainLayout';
 import AuthLayout from '../shared/Layout/AuthLayout';
+import PrivateRoute from '../features/Authentication/PrivateRoute/PrivateRoute';
+import PublicRoute from '../features/Authentication/PublicRoute/PublicRoute';
 
 const DefaultRoutes = (
   <Routes>
     <Route element={<MainLayout />}>
-      <Route path={ROUTES.HOME} element={<HomePage />} />
+      <Route
+        path={ROUTES.HOME}
+        element={
+          <PrivateRoute>
+            <HomePage />
+          </PrivateRoute>
+        }
+      />
     </Route>
     <Route
       path={ROUTES.AUTHENTICATION}
       element={
-        <AuthLayout>
-          <AuthenticationPage />
-        </AuthLayout>
+        <PublicRoute>
+          <AuthLayout>
+            <AuthenticationPage />
+          </AuthLayout>
+        </PublicRoute>
       }
     />
   </Routes>

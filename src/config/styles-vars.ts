@@ -1,3 +1,3 @@
 export const SIZE = {
-    TABLET: "1024px"
-}
+  TABLET: '1024px',
+};

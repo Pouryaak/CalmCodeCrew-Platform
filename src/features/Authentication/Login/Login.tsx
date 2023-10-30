@@ -1,6 +1,11 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, TextField, Container, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { RootState, store } from '../../../store/store';
+import { ROUTES } from '../../../routes/default_routes';
+import { signIn, clearError } from '../authSlice';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -8,15 +13,32 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const dispatch = useDispatch<typeof store.dispatch>();
+  const navigation = useNavigate();
+  const authStatus = useSelector((state: RootState) => state.auth.status);
+  const authError = useSelector((state: RootState) => state.auth.error);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(clearError());
+    formik.handleChange(event);
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log('Form values:', values);
-      // Handle login logic here
+      try {
+        await dispatch(signIn(values));
+        if (authStatus === 'succeeded') {
+          navigation(ROUTES.HOME);
+        }
+      } catch (error) {
+        console.error('Error logging in:', error);
+      }
     },
   });
   return (
@@ -33,7 +55,7 @@ const Login = () => {
           margin="normal"
           variant="outlined"
           value={formik.values.email}
-          onChange={formik.handleChange}
+          onChange={handleInputChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
         />
@@ -46,10 +68,11 @@ const Login = () => {
           margin="normal"
           variant="outlined"
           value={formik.values.password}
-          onChange={formik.handleChange}
+          onChange={handleInputChange}
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
         />
+        {authError && <Typography color="error">{authError}</Typography>}
         <Button
           color="primary"
           variant="outlined"
@@ -61,6 +84,9 @@ const Login = () => {
           Login
         </Button>
       </form>
+      <Typography sx={{ py: 2 }} variant="body1" textAlign="center">
+        Forgot Password? <a href="">Click Here</a>
+      </Typography>
     </Container>
   );
 };

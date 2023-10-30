@@ -10,7 +10,7 @@ const theme = createTheme({
     },
     primary: {
       main: COLORS.PRIMARY,
-      contrastText: COLORS.DARK_BG
+      contrastText: COLORS.DARK_BG,
     },
   },
   typography: {
@@ -52,8 +52,7 @@ const theme = createTheme({
           },
         },
       },
-    }
-
+    },
   },
 });
 
