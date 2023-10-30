@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { COLORS } from '../../config/colors';
 import loginBg from '../../assets/login_bg.jpeg';
-import shape from '../../assets/ai-generator-15.png'
 import { SIZE } from '../../config/styles-vars';
 
 export const Container = styled.div`
