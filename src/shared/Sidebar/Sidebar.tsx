@@ -10,6 +10,9 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../routes/default_routes';
 import Divider from '@mui/material/Divider';
+import { IMenuItem } from './Sidebar.models';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 const SideBar = ({
   visibility,
@@ -18,12 +21,15 @@ const SideBar = ({
   visibility: boolean;
   setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const menuItems = [
+  const userRole = useSelector((state: RootState) => state.auth.user?.role);
+
+  const menuItems: IMenuItem[] = [
     {
       title: 'Dashboard',
       key: 'dashboard',
       icon: <DashboardIcon />,
       to: ROUTES.HOME,
+      roles: ['admin'],
     },
   ];
 

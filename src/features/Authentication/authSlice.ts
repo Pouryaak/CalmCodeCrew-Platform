@@ -8,7 +8,6 @@ export const signIn = createAsyncThunk(
     async ({ email, password }: Auth, { rejectWithValue }) => {
         try {
             const userData = await signInUser(email, password);
-            console.log(userData);
             return userData;
         } catch (error) {
             if (error instanceof Error) {

@@ -25,6 +25,7 @@ export const signInUser = async (email: string, password: string) => {
         intrests: userDoc.data()?.intrests,
         attendedWorkshops: userDoc.data()?.attendedWorkshops,
         certificates: userDoc.data()?.certificates,
+        role: userDoc.data()?.role ?? "participant"
     } as User;
 };
 
@@ -45,6 +46,7 @@ export const signUpUser = async (
         intrests: [],
         attendedWorkshops: [],
         certificates: [],
+        role: "participant"
     });
     return {
         uid: userCredential.user.uid,
@@ -53,7 +55,8 @@ export const signUpUser = async (
         intrests: [],
         attendedWorkshops: [],
         certificates: [],
-    };
+        role: "participant"
+    } as User;
 };
 
 
