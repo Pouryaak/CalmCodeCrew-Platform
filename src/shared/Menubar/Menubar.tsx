@@ -11,10 +11,25 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
 import Logo from '../../assets/calmcodecrew.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, store } from '../../store/store';
+import Divider from '@mui/material/Divider';
+import { signOut } from '../../features/Authentication/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../routes/default_routes';
 
 const Menubar = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  const dispatch = useDispatch<typeof store.dispatch>();
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    dispatch(signOut());
+    navigate(ROUTES.AUTHENTICATION);
+  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -77,8 +92,12 @@ const Menubar = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
+                <MenuItem disableRipple disableTouchRipple>
+                  Welcome, {user?.name}
+                </MenuItem>
+                <Divider />
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Sign out</MenuItem>
+                <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
               </Menu>
             </div>
           </Toolbar>

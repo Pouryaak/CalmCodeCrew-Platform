@@ -58,7 +58,7 @@ const Register = () => {
           fullWidth
           id="name"
           name="name"
-          label="Name"
+          label="Full Name"
           margin="normal"
           variant="outlined"
           value={formik.values.name}
