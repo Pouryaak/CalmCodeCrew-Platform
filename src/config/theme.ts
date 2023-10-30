@@ -26,6 +26,9 @@ const theme = createTheme({
     h4: {
       fontWeight: 'bold',
     },
+    h5: {
+      fontWeight: 'bold',
+    },
   },
   components: {
     MuiButton: {
