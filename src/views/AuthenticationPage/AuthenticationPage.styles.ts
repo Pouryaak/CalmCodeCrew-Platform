@@ -13,7 +13,7 @@ export const Container = styled.div`
     max-width: 1024px;
     height: 85vh;
     padding: 25px;
-    box-shadow: 1px 1px 50px 0 rgba(173, 216, 230, 0.2);
+    gap: 20px;
 
     @media (max-width: ${SIZE.TABLET}) { 
         flex-direction: column;
@@ -28,10 +28,6 @@ export const Block = styled.div`
     flex-direction: column;
     justify-content: center; /* Horizontally centers content */
     align-items: center;
-    background-image: url(${shape});
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
 
     @media (max-width: ${SIZE.TABLET}) { 
         width: 100%;

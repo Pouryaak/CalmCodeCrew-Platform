@@ -9,19 +9,21 @@ import Register from '../../features/Authentication/Register/Register';
 const AuthenticationPage = () => {
   const [tab, setTab] = useState(Tab.REGISTER);
 
+  const handleTabSelection = () => {
+    setTab(tab === Tab.REGISTER ? Tab.LOGIN : Tab.REGISTER);
+  };
+
   return (
     <Container>
       <LeftBlock>
-        <img src={Logo} alt="" width={150} />
+        <img src={Logo} alt="calmcodecrew-logo" width={150} />
         <Typography sx={{ py: 3, textAlign: 'center' }} variant="h4">
           Welcome To CalmCodeCrew!
         </Typography>
         <Button
           size="large"
           variant="contained"
-          onClick={() =>
-            setTab(tab === Tab.REGISTER ? Tab.LOGIN : Tab.REGISTER)
-          }
+          onClick={() => handleTabSelection()}
         >
           {tab}
         </Button>

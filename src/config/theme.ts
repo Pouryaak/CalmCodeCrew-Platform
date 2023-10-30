@@ -30,14 +30,27 @@ const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
+        root: {
+          borderRadius: 25, // set your desired border-radius value for buttons
+        },
         containedPrimary: {
           backgroundColor: COLORS.SECONDARY, // Primary button background color
           '&:hover': {
             backgroundColor: darken(COLORS.SECONDARY, 0.2), // Darkens the color by 20% on hover
           },
         },
+        outlinedPrimary: {
+          borderColor: COLORS.SECONDARY,
+          color: COLORS.SECONDARY,
+          '&:hover': {
+            backgroundColor: darken(COLORS.SECONDARY, 0.1), // You can adjust this value as needed
+            color: COLORS.DARK_BG,
+            borderColor: COLORS.SECONDARY,
+          },
+        },
       },
-    },
+    }
+
   },
 });
 
