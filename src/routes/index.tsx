@@ -10,23 +10,11 @@ import WorkshopsPage from '../views/WorkshopsPage/WorkshopsPage';
 
 const DefaultRoutes = (
   <Routes>
-    <Route element={<MainLayout />}>
-      <Route
-        path={ROUTES.HOME}
-        element={
-          <PrivateRoute>
-            <HomePage />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path={ROUTES.WORKSHOPS}
-        element={
-          <PrivateRoute>
-            <WorkshopsPage />
-          </PrivateRoute>
-        }
-      />
+    <Route element={<PrivateRoute />}>
+      <Route element={<MainLayout />}>
+        <Route path={ROUTES.HOME} element={<HomePage />} />
+        <Route path={ROUTES.WORKSHOPS} element={<WorkshopsPage />} />
+      </Route>
     </Route>
 
     <Route
