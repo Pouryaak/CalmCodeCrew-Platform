@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { RootState, store } from '../../../store/store';
 import { ROUTES } from '../../../routes/default_routes';
 import { signUp, clearError } from '../authSlice';
-import toast from 'react-hot-toast';
 
 // Updated validation schema
 const validationSchema = Yup.object().shape({
