@@ -1,5 +1,11 @@
+import WorkshopHeader from '../../features/Workshops/components/WorkshopHeader/WorkshopHeader';
+
 const WorkshopsPage = () => {
-  return <div>Workshops</div>;
+  return (
+    <>
+      <WorkshopHeader />
+    </>
+  );
 };
 
 export default WorkshopsPage;

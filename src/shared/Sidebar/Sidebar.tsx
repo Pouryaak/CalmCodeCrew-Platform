@@ -13,6 +13,7 @@ import Divider from '@mui/material/Divider';
 import { IMenuItem } from './Sidebar.models';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 
 const SideBar = ({
   visibility,
@@ -29,9 +30,20 @@ const SideBar = ({
       key: 'dashboard',
       icon: <DashboardIcon />,
       to: ROUTES.HOME,
+      roles: ['admin', 'participant'],
+    },
+    {
+      title: 'Workshops',
+      key: 'workshop',
+      icon: <Diversity3Icon />,
+      to: ROUTES.WORKSHOPS,
       roles: ['admin'],
     },
   ];
+
+  const accessibleMenuItems = menuItems.filter((item) =>
+    item.roles.includes(userRole!),
+  );
 
   const menuItem = (icon, key, title, to) => {
     return (
@@ -57,7 +69,7 @@ const SideBar = ({
     <Drawer open={visibility} onClose={() => setVisibility(false)}>
       <Box sx={{ width: 300 }} role="presentation">
         <List>
-          {menuItems.map((item) =>
+          {accessibleMenuItems.map((item) =>
             menuItem(item.icon, item.key, item.title, item.to),
           )}
         </List>

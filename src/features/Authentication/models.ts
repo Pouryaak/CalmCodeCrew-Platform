@@ -11,7 +11,7 @@ export interface User {
     intrests: string[];
     certificates: string[];
     attendedWorkshops: string[];
-    role?: "admin" | "participant"
+    role: "admin" | "participant"
 }
 
 export interface AuthState {
