@@ -12,9 +12,15 @@ import StudentsListField from '../StudentsListField/StudentsListField';
 import PageHeader from '../../../../shared/components/PageHeader/PageHeader';
 import SaveIcon from '@mui/icons-material/Save';
 import WorkshopMaterialsField from '../WorkshopMaterialsField/WorkshopMaterialsField';
+import { addNewWorkshop } from '../../slice/workshop.slice';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../../routes/default_routes';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, store } from '../../../../store/store';
+import { STORE_STATUS } from '../../../../shared/models';
 
 const workshopSchema = Yup.object().shape({
-  uid: Yup.string().required('Unique identifier is required'), // Assuming it's a required field when submitting the form
+  uid: Yup.string().notRequired(), // Assuming it's a required field when submitting the form
   name: Yup.string()
     .required('Workshop name is required')
     .min(3, 'Workshop name must be at least 3 characters long'),
@@ -53,6 +59,10 @@ interface WorkshopDetailsFormProps {
 }
 
 const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<typeof store.dispatch>();
+  const storeState = useSelector((state: RootState) => state.workshops.status);
+
   const formik = useFormik({
     // Updated initial values
     initialValues: {
@@ -66,23 +76,34 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
       time: '',
       mentor: '',
       duration: '',
-      status: WorkshopStatus.UPCOMING, // Assuming this is the default status for new workshops
+      status: WorkshopStatus.UPCOMING,
       location: '',
       students: [],
     },
     validationSchema: workshopSchema,
     onSubmit: async (values) => {
       console.log('Form values:', values);
+      try {
+        await dispatch(addNewWorkshop(values));
+        if (storeState === STORE_STATUS.SUCCEEDED) {
+          navigate(ROUTES.WORKSHOPS);
+        }
+      } catch (error) {
+        console.error('Error registering:', error);
+      }
     },
   });
 
   const handleStudentsChange = useCallback((students) => {
-    console.log(students);
     formik.setFieldValue(
       'students',
       students.map((s) => s.uid),
     );
   }, []);
+
+  const setMaterials = (materials) => {
+    formik.setFieldValue('materials', materials);
+  };
 
   return (
     <div>
@@ -92,6 +113,7 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
           title: 'Save',
           onClick: formik.handleSubmit,
           Icon: SaveIcon,
+          loading: storeState === STORE_STATUS.LOADING,
         }}
       />
       <form onSubmit={formik.handleSubmit}>
@@ -255,7 +277,11 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
           <StudentsListField onStudentsChange={handleStudentsChange} />
         </Box>
         <Box sx={{ m: 2 }}>
-          <WorkshopMaterialsField />
+          <WorkshopMaterialsField
+            materials={formik.values.materials}
+            setMaterials={setMaterials}
+            formik={formik}
+          />
         </Box>
       </form>
     </div>

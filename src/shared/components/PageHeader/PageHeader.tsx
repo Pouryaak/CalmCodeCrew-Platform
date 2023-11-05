@@ -8,6 +8,7 @@ interface PageHeaderProps {
     title: string;
     onClick: () => void;
     Icon: ElementType;
+    loading: boolean;
   };
 }
 
@@ -21,8 +22,9 @@ const PageHeader = ({ title, buttonOptions }: PageHeaderProps) => {
             variant="contained"
             onClick={buttonOptions.onClick}
             endIcon={<buttonOptions.Icon />}
+            disabled={buttonOptions.loading}
           >
-            {buttonOptions.title}
+            {buttonOptions.loading ? 'Loading' : buttonOptions.title}
           </Button>
         )}
       </PageHeaderContainer>

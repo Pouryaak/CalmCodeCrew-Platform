@@ -1,6 +1,7 @@
 import { doc, getDoc, collection, addDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
 import { Workshop } from '../models';
 import { db } from '../../../config/firebase';
+import { omitProperty } from '../../../utils';
 
 // ... other imports ...
 
@@ -8,7 +9,7 @@ export const getAllWorkshops = async (): Promise<Workshop[]> => {
     try {
         const workshopsRef = collection(db, 'workshops');
         const workshopDocs = await getDocs(workshopsRef);
-        return workshopDocs.docs.map(doc => doc.data() as Workshop);
+        return workshopDocs.docs.map(doc => ({ uid: doc.id, ...doc.data() }) as Workshop);
     } catch (error) {
         console.error("Error fetching all workshops: ", error);
         throw error;
@@ -31,10 +32,11 @@ export const getOneWorkshop = async (workshopUid: string): Promise<Workshop> => 
     }
 };
 
-export const addWorkshop = async (workshop: Omit<Workshop, 'uid'>): Promise<string> => {
+export const addWorkshop = async (workshop: Workshop): Promise<string> => {
     try {
+        const omittedWorkshop = omitProperty(workshop, "uid");
         const workshopsRef = collection(db, 'workshops');
-        const workshopDocRef = await addDoc(workshopsRef, workshop);
+        const workshopDocRef = await addDoc(workshopsRef, omittedWorkshop);
         return workshopDocRef.id;
     } catch (error) {
         console.error("Error adding workshop: ", error);

@@ -88,14 +88,14 @@ const workshopSlice = createSlice({
         builder
             .addCase(fetchAllWorkshops.pending, setLoading)
             .addCase(fetchAllWorkshops.fulfilled, (state, action) => {
-                state.status = STORE_STATUS.IDLE;
+                state.status = STORE_STATUS.SUCCEEDED;
                 state.workshops = action.payload;
                 toast.success('Workshops loaded successfully!');
             })
             .addCase(fetchAllWorkshops.rejected, (state, action) => setFailed(state, action, 'Failed to load workshops'))
             .addCase(fetchWorkshopById.pending, setLoading)
             .addCase(fetchWorkshopById.fulfilled, (state, action) => {
-                state.status = STORE_STATUS.IDLE;
+                state.status = STORE_STATUS.SUCCEEDED;
                 const index = state.workshops.findIndex(w => w.uid === action.payload.uid);
                 if (index !== -1) {
                     state.workshops[index] = action.payload;
@@ -108,14 +108,14 @@ const workshopSlice = createSlice({
             .addCase(fetchWorkshopById.rejected, (state, action) => setFailed(state, action, 'Failed to load workshop'))
             .addCase(addNewWorkshop.pending, setLoading)
             .addCase(addNewWorkshop.fulfilled, (state, action) => {
-                state.status = STORE_STATUS.IDLE;
+                state.status = STORE_STATUS.SUCCEEDED;
                 state.workshops.push(action.payload);
                 toast.success('Workshop added successfully!');
             })
             .addCase(addNewWorkshop.rejected, (state, action) => setFailed(state, action, 'Failed to add workshop'))
             .addCase(modifyWorkshop.pending, setLoading)
             .addCase(modifyWorkshop.fulfilled, (state, action) => {
-                state.status = STORE_STATUS.IDLE;
+                state.status = STORE_STATUS.SUCCEEDED;
                 const index = state.workshops.findIndex(w => w.uid === action.payload.uid);
                 if (index !== -1) {
                     state.workshops[index] = action.payload;
@@ -125,7 +125,7 @@ const workshopSlice = createSlice({
             .addCase(modifyWorkshop.rejected, (state, action) => setFailed(state, action, 'Failed to update workshop'))
             .addCase(removeWorkshop.pending, setLoading)
             .addCase(removeWorkshop.fulfilled, (state, action) => {
-                state.status = STORE_STATUS.IDLE;
+                state.status = STORE_STATUS.SUCCEEDED;
                 const index = state.workshops.findIndex(w => w.uid === action.payload);
                 if (index !== -1) {
                     state.workshops.splice(index, 1);
