@@ -8,7 +8,7 @@ export interface User {
     uid: string;
     email: string;
     name: string;
-    intrests: string[];
+    interests: string[];
     certificates: string[];
     attendedWorkshops: string[];
     role: "admin" | "participant"

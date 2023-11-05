@@ -49,6 +49,7 @@ export const signOut = createAsyncThunk('auth/signOut', async (_, { rejectWithVa
 
 const initialState: AuthState = {
     user: null,
+    //TODO: change status type to STORE_STATUS but to include "succeeded" as well
     status: 'idle',
     error: null,
     initializing: true,

@@ -7,6 +7,7 @@ import AuthLayout from '../shared/Layout/AuthLayout';
 import PrivateRoute from '../features/Authentication/PrivateRoute/PrivateRoute';
 import PublicRoute from '../features/Authentication/PublicRoute/PublicRoute';
 import WorkshopsPage from '../views/WorkshopsPage/WorkshopsPage';
+import WorkshopDetails from '../views/WorkshopsPage/WorkshopDetails.page';
 
 const DefaultRoutes = (
   <Routes>
@@ -14,6 +15,8 @@ const DefaultRoutes = (
       <Route element={<MainLayout />}>
         <Route path={ROUTES.HOME} element={<HomePage />} />
         <Route path={ROUTES.WORKSHOPS} element={<WorkshopsPage />} />
+        <Route path={ROUTES.ADD_WORKSHOP} element={<WorkshopDetails />} />
+        <Route path={ROUTES.EDIT_WORKSHOP} element={<WorkshopDetails />} />
       </Route>
     </Route>
 

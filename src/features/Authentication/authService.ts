@@ -22,7 +22,7 @@ export const signInUser = async (email: string, password: string) => {
         uid: userCredential.user.uid,
         email: userCredential.user.email || '',
         name: userDoc.data()?.name, // You can update this if you fetch the name as well
-        intrests: userDoc.data()?.intrests,
+        interests: userDoc.data()?.interests,
         attendedWorkshops: userDoc.data()?.attendedWorkshops,
         certificates: userDoc.data()?.certificates,
         role: userDoc.data()?.role ?? "participant"
@@ -43,7 +43,7 @@ export const signUpUser = async (
     await setDoc(userRef, {
         name,
         email,
-        intrests: [],
+        interests: [],
         attendedWorkshops: [],
         certificates: [],
         role: "participant"
@@ -52,7 +52,7 @@ export const signUpUser = async (
         uid: userCredential.user.uid,
         email,
         name,
-        intrests: [],
+        interests: [],
         attendedWorkshops: [],
         certificates: [],
         role: "participant"

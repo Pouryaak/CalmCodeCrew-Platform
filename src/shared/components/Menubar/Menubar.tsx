@@ -10,13 +10,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
-import Logo from '../../assets/calmcodecrew.png';
+import Logo from '../../../assets/calmcodecrew.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, store } from '../../store/store';
+import { RootState, store } from '../../../store/store';
 import Divider from '@mui/material/Divider';
-import { signOut } from '../../features/Authentication/authSlice';
+import { signOut } from '../../../features/Authentication/authSlice';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../routes/default_routes';
+import { ROUTES } from '../../../routes/default_routes';
 
 const Menubar = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);

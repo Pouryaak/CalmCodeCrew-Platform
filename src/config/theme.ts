@@ -12,6 +12,12 @@ const theme = createTheme({
       main: COLORS.PRIMARY,
       contrastText: COLORS.DARK_BG,
     },
+    secondary: {
+      main: COLORS.SECONDARY,
+      contrastText: COLORS.DARK_BG,
+      dark: darken(COLORS.SECONDARY, 0.2)
+
+    }
   },
   typography: {
     h1: {

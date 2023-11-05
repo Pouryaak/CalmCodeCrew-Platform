@@ -8,11 +8,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../routes/default_routes';
+import { ROUTES } from '../../../routes/default_routes';
 import Divider from '@mui/material/Divider';
 import { IMenuItem } from './Sidebar.models';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { RootState } from '../../../store/store';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 
 const SideBar = ({

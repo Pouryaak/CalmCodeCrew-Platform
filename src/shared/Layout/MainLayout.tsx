@@ -1,5 +1,5 @@
 import CssBaseline from '@mui/material/CssBaseline';
-import Menubar from '../../shared/Menubar/Menubar.jsx';
+import Menubar from '../components/Menubar/Menubar.js';
 import { Outlet } from 'react-router-dom';
 import Layout from './Layout.js';
 
