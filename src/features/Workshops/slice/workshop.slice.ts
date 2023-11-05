@@ -90,7 +90,6 @@ const workshopSlice = createSlice({
             .addCase(fetchAllWorkshops.fulfilled, (state, action) => {
                 state.status = STORE_STATUS.SUCCEEDED;
                 state.workshops = action.payload;
-                toast.success('Workshops loaded successfully!');
             })
             .addCase(fetchAllWorkshops.rejected, (state, action) => setFailed(state, action, 'Failed to load workshops'))
             .addCase(fetchWorkshopById.pending, setLoading)
@@ -99,7 +98,6 @@ const workshopSlice = createSlice({
                 const index = state.workshops.findIndex(w => w.uid === action.payload.uid);
                 if (index !== -1) {
                     state.workshops[index] = action.payload;
-                    toast.success('Workshop fetched successfully!');
                 } else {
                     state.workshops.push(action.payload);
                     toast.success('New workshop added to the list!');

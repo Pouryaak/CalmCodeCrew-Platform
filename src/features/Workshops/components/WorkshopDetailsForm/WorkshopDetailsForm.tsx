@@ -82,14 +82,13 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
     },
     validationSchema: workshopSchema,
     onSubmit: async (values) => {
-      console.log('Form values:', values);
       try {
         await dispatch(addNewWorkshop(values));
         if (storeState === STORE_STATUS.SUCCEEDED) {
           navigate(ROUTES.WORKSHOPS);
         }
       } catch (error) {
-        console.error('Error registering:', error);
+        console.error('Error adding workshop:', error);
       }
     },
   });
@@ -134,7 +133,6 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
             helperText={formik.touched.name && formik.errors.name}
           />
           <TextField
-            autoFocus
             id="mentor"
             name="mentor"
             label="Workshop Mentor"
@@ -145,7 +143,6 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
             helperText={formik.touched.mentor && formik.errors.mentor}
           />
           <TextField
-            autoFocus
             id="location"
             name="location"
             label="Workshop Location"
@@ -163,7 +160,6 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
           }}
         >
           <TextField
-            autoFocus
             id="date"
             name="date"
             label="Workshop Date"
@@ -175,7 +171,6 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
           />
           <TextField
             fullWidth
-            autoFocus
             id="time"
             name="time"
             label="Workshop Time"
@@ -187,7 +182,6 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
           />
 
           <TextField
-            autoFocus
             id="duration"
             name="duration"
             label="Workshop Duration (ex. 1h)"
@@ -241,7 +235,6 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
         >
           <TextField
             fullWidth
-            autoFocus
             id="image"
             name="image"
             label="Workshop Banner Image URL"
