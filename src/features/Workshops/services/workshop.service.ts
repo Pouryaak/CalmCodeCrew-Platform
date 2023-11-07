@@ -44,10 +44,10 @@ export const addWorkshop = async (workshop: Workshop): Promise<string> => {
     }
 };
 
-export const updateWorkshop = async (workshopId: string, updatedData: Partial<Workshop>): Promise<Workshop> => {
+export const updateWorkshop = async (updatedData: Workshop): Promise<Workshop> => {
     try {
-        const workshopRef = doc(db, 'workshops', workshopId);
-        await updateDoc(workshopRef, updatedData);
+        const workshopRef = doc(db, 'workshops', updatedData.uid);
+        await updateDoc(workshopRef, omitProperty(updatedData, "uid"));
         const updatedWorkshopDoc = await getDoc(workshopRef);
         return { uid: updatedWorkshopDoc.id, ...updatedWorkshopDoc.data() } as Workshop;
     } catch (error) {

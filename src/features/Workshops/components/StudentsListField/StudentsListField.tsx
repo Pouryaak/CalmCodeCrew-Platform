@@ -15,10 +15,12 @@ import { STORE_STATUS } from '../../../../shared/models';
 
 interface StudentsListFieldProps {
   onStudentsChange: (students: User[]) => void;
+  defaultSelectedStudentIds?: string[];
 }
 
 export default function StudentsListField({
   onStudentsChange,
+  defaultSelectedStudentIds = [],
 }: StudentsListFieldProps) {
   const dispatch = useDispatch<typeof store.dispatch>();
   const { users, status } = useSelector((state: RootState) => state.users);
@@ -35,6 +37,15 @@ export default function StudentsListField({
       users.filter((user) => user.role === 'participant'),
     );
   }, [users]);
+
+  useEffect(() => {
+    if (users.length > 0 && defaultSelectedStudentIds.length > 0) {
+      const selected = users.filter((user) =>
+        defaultSelectedStudentIds.includes(user.uid),
+      );
+      setSelectedStudents(selected);
+    }
+  }, [users, defaultSelectedStudentIds]);
 
   useEffect(() => {
     // Call the prop function with the new student list
@@ -75,7 +86,9 @@ export default function StudentsListField({
       )}
       {selectedStudents.length ? (
         <Box>
-          <Typography sx={{ my: 2 }}>Students List</Typography>
+          <Typography sx={{ my: 2 }} variant="body2">
+            Selected Students
+          </Typography>
           <Stack direction="row" spacing={1} mt={2}>
             {selectedStudents.map((student) => (
               <Chip
@@ -87,7 +100,7 @@ export default function StudentsListField({
           </Stack>
         </Box>
       ) : (
-        <Typography fontStyle="italic">
+        <Typography fontStyle="italic" mt={1}>
           No students have been selected
         </Typography>
       )}

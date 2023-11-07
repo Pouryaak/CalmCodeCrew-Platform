@@ -35,7 +35,6 @@ const WorkshopList = () => {
   }
 
   if (status === STORE_STATUS.FAILED) {
-    // Render error message if status is 'failed'
     return <div>Error: {error}</div>;
   }
 
@@ -60,7 +59,7 @@ const WorkshopList = () => {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell width={'50px'}>
-                  <MoreActions />
+                  <MoreActions id={workshop.uid} />
                 </TableCell>
                 <TableCell>{workshop.name}</TableCell>
                 <TableCell>

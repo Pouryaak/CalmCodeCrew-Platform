@@ -7,3 +7,8 @@ export enum ROUTES {
   PROFILE = '/profile',
   AUTHENTICATION = '/auth',
 }
+
+
+export const getRoute = {
+  editWorkshop: (id: string) => ROUTES.EDIT_WORKSHOP.replace(":id", id)
+}

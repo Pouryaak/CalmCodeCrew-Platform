@@ -48,9 +48,9 @@ export const addNewWorkshop = createAsyncThunk(
 
 export const modifyWorkshop = createAsyncThunk(
     'workshop/update',
-    async ({ workshopUid, workshop }: { workshopUid: string; workshop: Workshop }, { rejectWithValue }) => {
+    async (workshop: Workshop, { rejectWithValue }) => {
         try {
-            return await updateWorkshop(workshopUid, workshop);
+            return await updateWorkshop(workshop);
         } catch (error: any) {
             return rejectWithValue(error.message || 'Failed to update workshop');
         }
