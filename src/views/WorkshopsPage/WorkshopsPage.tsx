@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import PageHeader from '../../shared/components/PageHeader/PageHeader';
 import AddIcon from '@mui/icons-material/Add';
-import { ROUTES } from '../../routes/default_routes';
+import { useNavigate } from 'react-router-dom';
 import WorkshopList from '../../features/Workshops/components/WorkshopList/WorkshopList';
+import { ROUTES } from '../../routes/default_routes';
+import PageHeader from '../../shared/components/PageHeader/PageHeader';
 
-const WorkshopsPage = () => {
+function WorkshopsPage() {
   const navigate = useNavigate();
 
   return (
@@ -23,6 +23,6 @@ const WorkshopsPage = () => {
       <WorkshopList />
     </>
   );
-};
+}
 
 export default WorkshopsPage;

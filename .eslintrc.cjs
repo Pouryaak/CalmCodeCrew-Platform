@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ['.eslintrc.cjs'],
   env: {
     browser: true,
     es2021: true,
@@ -6,10 +7,12 @@ module.exports = {
   extends: [
     'airbnb',
     'airbnb-typescript',
+    'prettier',
     'eslint:recommended',
-    'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    'plugin:prettier/recommended',
+    'eslint-config-prettier',
   ],
   overrides: [
     {
@@ -31,9 +34,19 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'prettier'],
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
-    'react/react-in-jsx-scope': 'error',
+    "react/react-in-jsx-scope": "off",
+  "react/jsx-uses-react": "off",
     'no-undef': 'off',
     'prettier/prettier': 'error',
+    '@typescript-eslint/naming-convention': [
+    'error',
+    {
+      selector: 'variable',
+      format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+      leadingUnderscore: 'allow', // This allows for variable names with a leading underscore
+      trailingUnderscore: 'allow', // This allows for variable names with a trailing underscore
+    },
+  ],
   },
   settings: {
     react: {
