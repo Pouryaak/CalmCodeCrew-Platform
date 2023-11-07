@@ -1,5 +1,4 @@
-// useConfirmationDialog.ts
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 interface ConfirmationDialogProps {
   isOpen: boolean;
@@ -26,7 +25,7 @@ const useConfirmationDialog = () => {
   const defaultOnClose = useCallback(() => setIsOpen(false), []);
 
   const [dialogProps, setDialogProps] = useState<ConfirmationDialogProps>({
-    isOpen: isOpen,
+    isOpen,
     title: '',
     description: '',
     confirmButtonText: 'Confirm',
@@ -37,16 +36,16 @@ const useConfirmationDialog = () => {
     loadingText: 'Loading...',
   });
 
+  const hideDialog = useCallback(() => {
+    setDialogProps((prev) => ({ ...prev, isOpen: false }));
+  }, []);
+
   const showDialog = useCallback(
     (props: Omit<ConfirmationDialogProps, 'isOpen' | 'onClose'>) => {
       setDialogProps({ ...props, isOpen: true, onClose: hideDialog });
     },
     [defaultOnClose],
   );
-
-  const hideDialog = useCallback(() => {
-    setDialogProps((prev) => ({ ...prev, isOpen: false }));
-  }, []);
 
   return {
     show: showDialog,
