@@ -16,6 +16,7 @@ import { removeWorkshop } from '../../slice/workshop.slice';
 import { RootState, store } from '../../../../store/store';
 import { STORE_STATUS } from '../../../../shared/models';
 import { useNavigate } from 'react-router-dom';
+import { getRoute } from '../../../../routes/default_routes';
 
 interface MoreActionsProps {
   id: string;
