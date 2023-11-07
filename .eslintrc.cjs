@@ -26,12 +26,13 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint', 'react', 'prettier'],
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
-    '@typescript-eslint/no-undef': 'error',
-    'no-undef': 'error',
+    'react/react-in-jsx-scope': 'error',
+    'no-undef': 'off',
     'prettier/prettier': 'error',
   },
   settings: {
