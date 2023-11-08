@@ -1,29 +1,29 @@
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Material, WorkshopStatus } from '../../models';
-import { useCallback, useEffect } from 'react';
+import SaveIcon from '@mui/icons-material/Save';
+import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import StudentsListField from '../StudentsListField/StudentsListField';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useFormik } from 'formik';
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { ROUTES } from '../../../../routes/default_routes';
+import Loader from '../../../../shared/components/Loader/Loader';
 import PageHeader from '../../../../shared/components/PageHeader/PageHeader';
-import SaveIcon from '@mui/icons-material/Save';
-import WorkshopMaterialsField from '../WorkshopMaterialsField/WorkshopMaterialsField';
+import { STORE_STATUS } from '../../../../shared/models';
+import { RootState, store } from '../../../../store/store';
+import { Material, WorkshopStatus } from '../../models';
 import {
   addNewWorkshop,
   fetchWorkshopById,
   modifyWorkshop,
 } from '../../slice/workshop.slice';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../../../routes/default_routes';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, store } from '../../../../store/store';
-import { STORE_STATUS } from '../../../../shared/models';
-import { unwrapResult } from '@reduxjs/toolkit';
-import Loader from '../../../../shared/components/Loader/Loader';
+import StudentsListField from '../StudentsListField/StudentsListField';
+import WorkshopMaterialsField from '../WorkshopMaterialsField/WorkshopMaterialsField';
 
 const workshopSchema = Yup.object().shape({
   uid: Yup.string().notRequired(), // Assuming it's a required field when submitting the form
@@ -69,23 +69,6 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
   const dispatch = useDispatch<typeof store.dispatch>();
   const storeState = useSelector((state: RootState) => state.workshops.status);
 
-  useEffect(() => {
-    if (id) {
-      // Async function to load the workshop data and populate the form
-      const loadWorkshopData = async () => {
-        try {
-          const actionResult = await dispatch(fetchWorkshopById(id));
-          const workshop = unwrapResult(actionResult);
-          formik.setValues({ ...workshop });
-        } catch (error) {
-          console.error('Failed to load workshop data:', error);
-        }
-      };
-
-      loadWorkshopData();
-    }
-  }, [id, dispatch]);
-
   const formik = useFormik({
     initialValues: {
       uid: '',
@@ -124,6 +107,23 @@ const WorkshopDetailsForm: React.FC<WorkshopDetailsFormProps> = ({ id }) => {
       }
     },
   });
+
+  useEffect(() => {
+    if (id) {
+      // Async function to load the workshop data and populate the form
+      const loadWorkshopData = async () => {
+        try {
+          const actionResult = await dispatch(fetchWorkshopById(id));
+          const workshop = unwrapResult(actionResult);
+          formik.setValues({ ...workshop });
+        } catch (error) {
+          console.error('Failed to load workshop data:', error);
+        }
+      };
+
+      loadWorkshopData();
+    }
+  }, [id, dispatch]);
 
   const handleStudentsChange = useCallback((students) => {
     formik.setFieldValue(
