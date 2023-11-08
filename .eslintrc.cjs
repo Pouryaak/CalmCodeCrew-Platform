@@ -1,5 +1,5 @@
 module.exports = {
-  ignorePatterns: ['.eslintrc.cjs'],
+  ignorePatterns: ['.eslintrc.cjs', 'functions/**'],
   env: {
     browser: true,
     es2021: true,
@@ -35,6 +35,12 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
     "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": [2, {
+      "namedComponents": "arrow-function",
+      "unnamedComponents": "arrow-function"
+    }],
+     "react/prop-types": "off",
+     "no-console": ["error", { "allow": ["warn", "error"] }],
   "react/jsx-uses-react": "off",
     'no-undef': 'off',
     'prettier/prettier': 'error',
