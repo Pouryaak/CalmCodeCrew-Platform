@@ -1,5 +1,5 @@
 module.exports = {
-  ignorePatterns: ['.eslintrc.cjs', './functions/**'],
+  ignorePatterns: ['.eslintrc.cjs', 'functions/**'],
   env: {
     browser: true,
     es2021: true,
