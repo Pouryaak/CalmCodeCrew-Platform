@@ -14,7 +14,7 @@ async function getBackgroundImageBuffer(): Promise<Buffer> {
     return cachedBackgroundImageBuffer;
   }
   const bucket = admin.storage().bucket();
-  const backgroundImageFile = bucket.file('cert_frame.jpeg');
+  const backgroundImageFile = bucket.file('cert_frame.jpg');
   const [backgroundImageBuffer] = await backgroundImageFile.download();
   cachedBackgroundImageBuffer = backgroundImageBuffer;
   return backgroundImageBuffer;
@@ -27,7 +27,7 @@ async function createCertificate(
 ): Promise<Buffer> {
   const backgroundImageBuffer = await getBackgroundImageBuffer();
   const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([1468, 1080]);
+  const page = pdfDoc.addPage([3508, 2462]);
   const jpgImage = await pdfDoc.embedJpg(backgroundImageBuffer);
   const font = await pdfDoc.embedFont(StandardFonts.TimesRomanBoldItalic);
 
@@ -105,7 +105,7 @@ exports.onWorkshopCompletion = functions.firestore
     ) {
       logger.info('Workshop status changed to completed');
       const workshopId = context.params.workshopId;
-      const workshopName = after.name + 'Workshop';
+      const workshopName = after.name + ' Workshop';
       const instructorName = after.mentor;
       const studentIds: string[] = after.students;
 
@@ -116,7 +116,12 @@ exports.onWorkshopCompletion = functions.firestore
         const studentName = userDoc.data()?.name; // replace with actual field name for full name
 
         // Generate the certificate PDF
-
+        logger.info(
+          'Certificate information',
+          studentName,
+          workshopName,
+          instructorName,
+        );
         const pdfBuffer = await createCertificate(
           studentName,
           workshopName,
