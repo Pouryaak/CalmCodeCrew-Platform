@@ -36,6 +36,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     "@typescript-eslint/no-explicit-any": "off",
     "no-param-reassign": ["error", { "props": false }],
+    'react/jsx-props-no-spreading': 'off',
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [2, {
       "namedComponents": "arrow-function",

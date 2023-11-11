@@ -12,23 +12,19 @@ import Loader from '../../../../shared/components/Loader/Loader';
 import MoreActions from '../../../../shared/components/MoreActions/MoreActions';
 import { STORE_STATUS } from '../../../../shared/models';
 import { RootState, store } from '../../../../store/store';
-import { formatDateAndTime } from '../../../../utils';
-import { fetchAllWorkshops } from '../../slice/workshop.slice';
-import StatusChip from '../StatusChip/StatusChip';
+import { fetchAllUsers } from '../../slice/users.slice';
 
-const WorkshopList = () => {
+const UserList = () => {
   const dispatch = useDispatch<typeof store.dispatch>();
-  const workshops = useSelector(
-    (state: RootState) => state.workshops.workshops,
-  );
-  const status = useSelector((state: RootState) => state.workshops.status);
-  const error = useSelector((state: RootState) => state.workshops.error);
+  const users = useSelector((state: RootState) => state.users.users);
+  const status = useSelector((state: RootState) => state.users.status);
+  const error = useSelector((state: RootState) => state.users.error);
 
   useEffect(() => {
     if (status === STORE_STATUS.IDLE) {
-      dispatch(fetchAllWorkshops());
+      dispatch(fetchAllUsers());
     }
-  }, [status, dispatch]);
+  }, [status, dispatch]); // Only re-run the effect if 'dispatch' changes
 
   if (status === STORE_STATUS.LOADING) {
     return <Loader />;
@@ -46,30 +42,24 @@ const WorkshopList = () => {
             <TableRow>
               <TableCell />
               <TableCell>Name</TableCell>
-              <TableCell>Date & Time</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Mentor</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Role</TableCell>
+              <TableCell>Attended Workshops</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {workshops.map((workshop) => (
+            {users.map((user) => (
               <TableRow
-                key={workshop.uid} // Replace 'uid' with your actual unique identifier
+                key={user.uid} // Replace 'uid' with your actual unique identifier
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell width="50px">
-                  <MoreActions id={workshop.uid} />
+                  <MoreActions id={user.uid} />
                 </TableCell>
-                <TableCell>{workshop.name}</TableCell>
-                <TableCell>
-                  {formatDateAndTime(workshop.date, workshop.time)}
-                </TableCell>
-                <TableCell>{workshop.location}</TableCell>
-                <TableCell>{workshop.mentor}</TableCell>
-                <TableCell>
-                  <StatusChip status={workshop.status} />
-                </TableCell>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.role}</TableCell>
+                <TableCell>{user.attendedWorkshops.length}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -79,4 +69,4 @@ const WorkshopList = () => {
   );
 };
 
-export default WorkshopList;
+export default UserList;

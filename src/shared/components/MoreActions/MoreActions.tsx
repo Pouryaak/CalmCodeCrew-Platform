@@ -1,28 +1,32 @@
-import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useState } from 'react';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Box from '@mui/material/Box';
-import useConfirmationDialog from '../../../../shared/hooks/useConfirmationDialog';
-import { ConfirmationDialog } from '../../../../shared/components/ConfirmationDialog/ConfirmationDialog';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeWorkshop } from '../../slice/workshop.slice';
-import { RootState, store } from '../../../../store/store';
-import { STORE_STATUS } from '../../../../shared/models';
 import { useNavigate } from 'react-router-dom';
-import { getRoute } from '../../../../routes/default_routes';
+import { removeWorkshop } from '../../../features/Workshops/slice/workshop.slice';
+import { getRoute } from '../../../routes/default_routes';
+import { RootState, store } from '../../../store/store';
+import useConfirmationDialog from '../../hooks/useConfirmationDialog';
+import { STORE_STATUS } from '../../models';
+import { ConfirmationDialog } from '../ConfirmationDialog/ConfirmationDialog';
 
 interface MoreActionsProps {
   id: string;
+  delete?: boolean;
 }
 
-const MoreActions: React.FC<MoreActionsProps> = ({ id }) => {
+const MoreActions: React.FC<MoreActionsProps> = ({
+  id,
+  delete: deleteProp = false,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { show, hide, dialogProps } = useConfirmationDialog();
   const status = useSelector((state: RootState) => state.workshops.status);
@@ -85,12 +89,14 @@ const MoreActions: React.FC<MoreActionsProps> = ({ id }) => {
               </ListItemIcon>
               <ListItemText>Edit</ListItemText>
             </MenuItem>
-            <MenuItem onClick={onDelete}>
-              <ListItemIcon>
-                <DeleteIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Delete</ListItemText>
-            </MenuItem>
+            {deleteProp && (
+              <MenuItem onClick={onDelete}>
+                <ListItemIcon>
+                  <DeleteIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Delete</ListItemText>
+              </MenuItem>
+            )}
           </MenuList>
         </Box>
       </Menu>

@@ -1,6 +1,7 @@
 import CardMembershipIcon from '@mui/icons-material/CardMembership';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import GroupIcon from '@mui/icons-material/Group';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -45,6 +46,13 @@ const SideBar = ({
       key: 'certificates',
       icon: <CardMembershipIcon />,
       to: ROUTES.CERTIFICATES,
+      roles: ['admin'],
+    },
+    {
+      title: 'Users',
+      key: 'users',
+      icon: <GroupIcon />,
+      to: ROUTES.USERS,
       roles: ['admin'],
     },
   ];
