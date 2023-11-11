@@ -34,6 +34,8 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'prettier'],
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-param-reassign": ["error", { "props": false }],
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [2, {
       "namedComponents": "arrow-function",

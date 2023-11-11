@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import HomePage from '../views/HomePage/HomePage';
-import { ROUTES } from './default_routes';
-import AuthenticationPage from '../views/AuthenticationPage/AuthenticationPage';
-import MainLayout from '../shared/Layout/MainLayout';
-import AuthLayout from '../shared/Layout/AuthLayout';
 import PrivateRoute from '../features/Authentication/PrivateRoute/PrivateRoute';
 import PublicRoute from '../features/Authentication/PublicRoute/PublicRoute';
-import WorkshopsPage from '../views/WorkshopsPage/WorkshopsPage';
+import AuthLayout from '../shared/Layout/AuthLayout';
+import MainLayout from '../shared/Layout/MainLayout';
+import AuthenticationPage from '../views/AuthenticationPage/AuthenticationPage';
+import CertificatesPage from '../views/CertificatesPage/CertificatesPage';
+import HomePage from '../views/HomePage/HomePage';
 import WorkshopDetails from '../views/WorkshopsPage/WorkshopDetails.page';
+import WorkshopsPage from '../views/WorkshopsPage/WorkshopsPage';
+import { ROUTES } from './default_routes';
 
 const DefaultRoutes = (
   <Routes>
@@ -17,6 +18,7 @@ const DefaultRoutes = (
         <Route path={ROUTES.WORKSHOPS} element={<WorkshopsPage />} />
         <Route path={ROUTES.ADD_WORKSHOP} element={<WorkshopDetails />} />
         <Route path={ROUTES.EDIT_WORKSHOP} element={<WorkshopDetails />} />
+        <Route path={ROUTES.CERTIFICATES} element={<CertificatesPage />} />
       </Route>
     </Route>
 

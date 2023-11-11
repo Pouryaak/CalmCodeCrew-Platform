@@ -1,4 +1,6 @@
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,24 +13,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../shared/components/Loader/Loader';
 import { STORE_STATUS } from '../../../../shared/models';
 import { RootState, store } from '../../../../store/store';
-import { formatDateAndTime } from '../../../../utils';
-import { fetchAllWorkshops } from '../../slice/workshop.slice';
-import MoreActions from '../MoreActions/MoreActions';
-import StatusChip from '../StatusChip/StatusChip';
+import { fetchAllCertificates } from '../../slice/certificates.slice';
 
-const WorkshopList = () => {
+const CertificateList = () => {
   const dispatch = useDispatch<typeof store.dispatch>();
-  const workshops = useSelector(
-    (state: RootState) => state.workshops.workshops,
+  const certificates = useSelector(
+    (state: RootState) => state.certificates.certificates,
   );
-  const status = useSelector((state: RootState) => state.workshops.status);
-  const error = useSelector((state: RootState) => state.workshops.error);
+  const status = useSelector((state: RootState) => state.certificates.status);
+  const error = useSelector((state: RootState) => state.certificates.error);
 
   useEffect(() => {
     if (status === STORE_STATUS.IDLE) {
-      dispatch(fetchAllWorkshops());
+      dispatch(fetchAllCertificates());
     }
   }, [status, dispatch]);
+
+  const openCertificate = (link: string) => {
+    window.open(link, '_blank');
+  };
 
   if (status === STORE_STATUS.LOADING) {
     return <Loader />;
@@ -44,31 +47,29 @@ const WorkshopList = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell />
-              <TableCell>Name</TableCell>
-              <TableCell>Date & Time</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Mentor</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>Student Name</TableCell>
+              <TableCell>Generation Date</TableCell>
+              <TableCell>Workshop Name</TableCell>
+              <TableCell>Download</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {workshops.map((workshop) => (
+            {certificates.map((certificate) => (
               <TableRow
-                key={workshop.uid} // Replace 'uid' with your actual unique identifier
+                key={certificate.uid}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell width="50px">
-                  <MoreActions id={workshop.uid} />
-                </TableCell>
-                <TableCell>{workshop.name}</TableCell>
+                <TableCell>{certificate.userName}</TableCell>
+                <TableCell>{certificate.generationDate}</TableCell>
+                <TableCell>{certificate.workshopName}</TableCell>
                 <TableCell>
-                  {formatDateAndTime(workshop.date, workshop.time)}
-                </TableCell>
-                <TableCell>{workshop.location}</TableCell>
-                <TableCell>{workshop.mentor}</TableCell>
-                <TableCell>
-                  <StatusChip status={workshop.status} />
+                  <IconButton
+                    aria-label="delete"
+                    color="secondary"
+                    onClick={() => openCertificate(certificate.link)}
+                  >
+                    <CloudDownloadIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
@@ -79,4 +80,4 @@ const WorkshopList = () => {
   );
 };
 
-export default WorkshopList;
+export default CertificateList;

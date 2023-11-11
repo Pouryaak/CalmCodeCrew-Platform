@@ -30,3 +30,20 @@ export function capitalizeFirstLetter(word: string): string {
   if (word === '') return word;
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
+
+export const formatDateFromTimestamp = (timestamp: {
+  seconds: number;
+  nanoseconds: number;
+}): string => {
+  // Convert timestamp to milliseconds
+  const dateInMillis =
+    timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000;
+  // Create a Date object
+  const date = new Date(dateInMillis);
+  // Return the formatted date
+  return date.toLocaleDateString('en-US', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+};

@@ -4,7 +4,7 @@ import WorkshopList from '../../features/Workshops/components/WorkshopList/Works
 import { ROUTES } from '../../routes/default_routes';
 import PageHeader from '../../shared/components/PageHeader/PageHeader';
 
-function WorkshopsPage() {
+const WorkshopsPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -23,6 +23,6 @@ function WorkshopsPage() {
       <WorkshopList />
     </>
   );
-}
+};
 
 export default WorkshopsPage;

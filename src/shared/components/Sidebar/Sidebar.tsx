@@ -1,19 +1,20 @@
-import React from 'react';
+import CardMembershipIcon from '@mui/icons-material/CardMembership';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../routes/default_routes';
-import Divider from '@mui/material/Divider';
-import { IMenuItem } from './Sidebar.models';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
+import { IMenuItem } from './Sidebar.models';
 
 const SideBar = ({
   visibility,
@@ -37,6 +38,13 @@ const SideBar = ({
       key: 'workshop',
       icon: <Diversity3Icon />,
       to: ROUTES.WORKSHOPS,
+      roles: ['admin'],
+    },
+    {
+      title: 'Certificates',
+      key: 'certificates',
+      icon: <CardMembershipIcon />,
+      to: ROUTES.CERTIFICATES,
       roles: ['admin'],
     },
   ];
