@@ -10,9 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { removeWorkshop } from '../../../features/Workshops/slice/workshop.slice';
-import { getRoute } from '../../../routes/default_routes';
 import { RootState, store } from '../../../store/store';
 import useConfirmationDialog from '../../hooks/useConfirmationDialog';
 import { STORE_STATUS } from '../../models';
@@ -21,17 +19,18 @@ import { ConfirmationDialog } from '../ConfirmationDialog/ConfirmationDialog';
 interface MoreActionsProps {
   id: string;
   delete?: boolean;
+  onEdit: () => void;
 }
 
 const MoreActions: React.FC<MoreActionsProps> = ({
   id,
   delete: deleteProp = false,
+  onEdit,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { show, hide, dialogProps } = useConfirmationDialog();
   const status = useSelector((state: RootState) => state.workshops.status);
   const dispatch = useDispatch<typeof store.dispatch>();
-  const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -64,10 +63,6 @@ const MoreActions: React.FC<MoreActionsProps> = ({
     });
   };
 
-  const redirectToEdit = () => {
-    navigate(getRoute.editWorkshop(id));
-  };
-
   return (
     <>
       <ConfirmationDialog {...dialogProps} />
@@ -83,7 +78,7 @@ const MoreActions: React.FC<MoreActionsProps> = ({
         <Box sx={{ maxWidth: '100%', backgroundColor: 'transparent' }}>
           <MenuList sx={{ py: 0 }}>
             {/* Place menu items with icons here */}
-            <MenuItem onClick={redirectToEdit}>
+            <MenuItem onClick={onEdit}>
               <ListItemIcon>
                 <EditIcon fontSize="small" />
               </ListItemIcon>

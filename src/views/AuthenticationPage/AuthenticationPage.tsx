@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Block, Container, LeftBlock } from './AuthenticationPage.styles';
-import Logo from '../../assets/calmcodecrew.png';
 import { Button, Typography } from '@mui/material';
-import { Tab } from './models';
+import { useState } from 'react';
+import Logo from '../../assets/calmcodecrew.png';
 import Login from '../../features/Authentication/Login/Login';
 import Register from '../../features/Authentication/Register/Register';
+import { Block, Container, LeftBlock } from './AuthenticationPage.styles';
+import { Tab } from './models';
 
 const AuthenticationPage = () => {
   const [tab, setTab] = useState(Tab.REGISTER);

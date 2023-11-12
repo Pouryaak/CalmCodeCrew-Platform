@@ -6,6 +6,7 @@ import MainLayout from '../shared/Layout/MainLayout';
 import AuthenticationPage from '../views/AuthenticationPage/AuthenticationPage';
 import CertificatesPage from '../views/CertificatesPage/CertificatesPage';
 import HomePage from '../views/HomePage/HomePage';
+import UserDetailsPage from '../views/UsersPage/UserDetailsPage';
 import UsersPage from '../views/UsersPage/UsersPage';
 import WorkshopDetails from '../views/WorkshopsPage/WorkshopDetails.page';
 import WorkshopsPage from '../views/WorkshopsPage/WorkshopsPage';
@@ -21,6 +22,7 @@ const DefaultRoutes = (
         <Route path={ROUTES.EDIT_WORKSHOP} element={<WorkshopDetails />} />
         <Route path={ROUTES.CERTIFICATES} element={<CertificatesPage />} />
         <Route path={ROUTES.USERS} element={<UsersPage />} />
+        <Route path={ROUTES.EDIT_USER} element={<UserDetailsPage />} />
       </Route>
     </Route>
 

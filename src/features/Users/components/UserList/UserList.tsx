@@ -8,6 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getRoute } from '../../../../routes/default_routes';
 import Loader from '../../../../shared/components/Loader/Loader';
 import MoreActions from '../../../../shared/components/MoreActions/MoreActions';
 import { STORE_STATUS } from '../../../../shared/models';
@@ -16,6 +18,7 @@ import { fetchAllUsers } from '../../slice/users.slice';
 
 const UserList = () => {
   const dispatch = useDispatch<typeof store.dispatch>();
+  const navigate = useNavigate();
   const users = useSelector((state: RootState) => state.users.users);
   const status = useSelector((state: RootState) => state.users.status);
   const error = useSelector((state: RootState) => state.users.error);
@@ -24,7 +27,7 @@ const UserList = () => {
     if (status === STORE_STATUS.IDLE) {
       dispatch(fetchAllUsers());
     }
-  }, [status, dispatch]); // Only re-run the effect if 'dispatch' changes
+  }, [status, dispatch]);
 
   if (status === STORE_STATUS.LOADING) {
     return <Loader />;
@@ -50,11 +53,14 @@ const UserList = () => {
           <TableBody>
             {users.map((user) => (
               <TableRow
-                key={user.uid} // Replace 'uid' with your actual unique identifier
+                key={user.uid}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell width="50px">
-                  <MoreActions id={user.uid} />
+                  <MoreActions
+                    id={user.uid}
+                    onEdit={() => navigate(getRoute.editUser(user.uid))}
+                  />
                 </TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>

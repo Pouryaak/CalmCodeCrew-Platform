@@ -8,6 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getRoute } from '../../../../routes/default_routes';
 import Loader from '../../../../shared/components/Loader/Loader';
 import MoreActions from '../../../../shared/components/MoreActions/MoreActions';
 import { STORE_STATUS } from '../../../../shared/models';
@@ -18,6 +20,7 @@ import StatusChip from '../StatusChip/StatusChip';
 
 const WorkshopList = () => {
   const dispatch = useDispatch<typeof store.dispatch>();
+  const navigate = useNavigate();
   const workshops = useSelector(
     (state: RootState) => state.workshops.workshops,
   );
@@ -59,7 +62,11 @@ const WorkshopList = () => {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell width="50px">
-                  <MoreActions id={workshop.uid} />
+                  <MoreActions
+                    id={workshop.uid}
+                    delete
+                    onEdit={() => navigate(getRoute.editWorkshop(workshop.uid))}
+                  />
                 </TableCell>
                 <TableCell>{workshop.name}</TableCell>
                 <TableCell>
