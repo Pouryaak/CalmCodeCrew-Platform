@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 import { STORE_STATUS } from '../../../shared/models';
-import { Workshop } from '../models'; // Update with your actual path
+import { Workshop } from '../models';
 import {
   addWorkshop,
   deleteWorkshop,

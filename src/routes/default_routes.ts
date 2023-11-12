@@ -1,6 +1,8 @@
 export enum ROUTES {
   HOME = '/',
   WORKSHOPS = '/workshops',
+  MY_WORKSHOPS = '/myworkshops',
+  MY_CERTIFICATES = '/mycertificates',
   ADD_WORKSHOP = '/workshops/add',
   EDIT_WORKSHOP = '/workshops/edit/:id',
   USERS = '/users',

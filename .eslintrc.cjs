@@ -35,6 +35,8 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
     "@typescript-eslint/no-explicit-any": "off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "off",
     "no-param-reassign": ["error", { "props": false }],
     'react/jsx-props-no-spreading': 'off',
     "react/react-in-jsx-scope": "off",
